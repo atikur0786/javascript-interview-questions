@@ -15,7 +15,7 @@ Use the **Table of Contents** below to navigate quickly. Each answer includes a 
 
 ---
 
-## 📚 Table of Contents
+## Table of Contents
 
 ### 🟢 Beginner Level (Fundamentals)
 
@@ -115,5 +115,100 @@ public class Main {
 - JavaScript is used primarily for **web development**, while Java is used for **enterprise, Android, and backend** applications.
 - JavaScript is **loosely typed and dynamic**, whereas Java is **strongly typed and static**.
 - They **do not share any runtime, libraries, or design philosophy** despite having similar names.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
+
+### 2. Explain var, let, and const with examples
+
+In JavaScript, `var`, `let`, and `const` are used to declare variables, but they differ in **scope**, **hoisting behavior**, and **reassignment rules**.
+
+---
+
+#### 1️⃣ **var**
+
+- **Scope**: Function-scoped (available throughout the function where it’s declared).
+- **Hoisting**: Hoisted to the top of its scope and initialized with `undefined`.
+- **Redeclaration**: Allowed in the same scope.
+- **Reassignment**: Allowed.
+
+```javascript
+function testVar() {
+  console.log(a); // undefined (due to hoisting)
+  var a = 10;
+  console.log(a); // 10
+}
+testVar();
+
+// Redeclaration allowed
+var x = 5;
+var x = 20;
+console.log(x); // 20
+```
+
+---
+
+#### 2️⃣ **let**
+
+- **Scope**: Block-scoped (only available inside `{}` where it's declared).
+- **Hoisting**: Hoisted but **not initialized** (in the _Temporal Dead Zone_ until assigned).
+- **Redeclaration**: **Not allowed** in the same scope.
+- **Reassignment**: Allowed.
+
+```javascript
+function testLet() {
+  // console.log(b); // ❌ ReferenceError (Temporal Dead Zone)
+  let b = 10;
+  console.log(b); // 10
+}
+testLet();
+
+// Redeclaration not allowed
+let y = 5;
+// let y = 20; // ❌ SyntaxError
+y = 15; // ✅ Allowed
+console.log(y); // 15
+```
+
+---
+
+#### 3️⃣ **const**
+
+- **Scope**: Block-scoped.
+- **Hoisting**: Hoisted but not initialized (Temporal Dead Zone).
+- **Redeclaration**: Not allowed in the same scope.
+- **Reassignment**: Not allowed (the variable binding is constant, but object/array contents can be mutated).
+
+```javascript
+const z = 10;
+// z = 20; // ❌ TypeError (can't reassign)
+
+// With objects
+const person = { name: "Atikur" };
+person.name = "Satter"; // ✅ Allowed (object reference unchanged)
+console.log(person); // { name: "Satter" }
+```
+
+---
+
+#### 📊 **Comparison Table**
+
+| Feature           | var                              | let                      | const                    |
+| ----------------- | -------------------------------- | ------------------------ | ------------------------ |
+| **Scope**         | Function-scoped                  | Block-scoped             | Block-scoped             |
+| **Hoisting**      | Yes (initialized as `undefined`) | Yes (TDZ until assigned) | Yes (TDZ until assigned) |
+| **Redeclaration** | ✅ Allowed                       | ❌ Not allowed           | ❌ Not allowed           |
+| **Reassignment**  | ✅ Allowed                       | ✅ Allowed               | ❌ Not allowed           |
+
+---
+
+#### 🧠 Key Takeaways:
+
+- Prefer **`let`** and **`const`** in modern JavaScript.
+- Use **`const`** by default unless you know the variable will change.
+- Avoid `var` in modern code to prevent scope-related bugs.
+
+---
 
 [🔝 Back to Top](#table-of-contents)
