@@ -212,3 +212,127 @@ console.log(person); // { name: "Satter" }
 ---
 
 [🔝 Back to Top](#table-of-contents)
+
+### 3. What are data types in JavaScript?
+
+JavaScript variables can hold different types of data.  
+Data types define the **kind of values** that can be stored and how they behave in operations.
+
+---
+
+## 📌 Two Main Categories of Data Types
+
+### 1️⃣ **Primitive Data Types** (Immutable, stored by value)
+
+Primitive types are simple, immutable values.  
+When assigned to a variable, they are **copied** rather than referenced.
+
+1. **String**
+   ```javascript
+   let name = "Atikur";
+   let greeting = "Hello";
+   let template = `Hi, ${name}`;
+   ```
+
+````
+
+2. **Number**
+
+   ```javascript
+   let age = 25;
+   let price = 99.99;
+   let infinityValue = Infinity;
+   let notANumber = NaN;
+   ```
+
+3. **Boolean**
+
+   ```javascript
+   let isActive = true;
+   let isComplete = false;
+   ```
+
+4. **Undefined**
+
+   ```javascript
+   let a;
+   console.log(a); // undefined
+   ```
+
+5. **Null**
+
+   ```javascript
+   let b = null;
+   console.log(b); // null
+   ```
+
+6. **Symbol** (ES6)
+
+   ```javascript
+   let id = Symbol("uniqueId");
+   let id2 = Symbol("uniqueId");
+   console.log(id === id2); // false
+   ```
+
+7. **BigInt** (ES2020)
+
+   ```javascript
+   let bigNumber = 123456789012345678901234567890n;
+   ```
+
+---
+
+### 2️⃣ **Non-Primitive (Reference) Data Types**
+
+These are objects, arrays, and functions.
+They are stored **by reference**, meaning multiple variables can point to the same object in memory.
+
+1. **Object**
+
+   ```javascript
+   let person = { name: "Atikur", age: 25 };
+   ```
+
+2. **Array**
+
+   ```javascript
+   let colors = ["red", "green", "blue"];
+   ```
+
+3. **Function**
+
+   ```javascript
+   function greet() {
+     return "Hello!";
+   }
+   ```
+
+---
+
+### 🧠 Key Notes:
+
+* **typeof null** returns `"object"` (a historical JavaScript bug).
+* **Arrays** and **functions** are technically objects.
+* Primitive values are copied, but objects are referenced.
+
+---
+
+### 📊 Type Detection
+
+```javascript
+console.log(typeof "Hello"); // string
+console.log(typeof 42);      // number
+console.log(typeof true);    // boolean
+console.log(typeof undefined); // undefined
+console.log(typeof null);    // object (quirk)
+console.log(typeof Symbol("id")); // symbol
+console.log(typeof 123n);    // bigint
+console.log(typeof {});      // object
+console.log(typeof []);      // object
+console.log(typeof function(){}); // function
+```
+
+---
+
+[🔝 Back to Top](#table-of-contents)
+````
