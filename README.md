@@ -330,9 +330,84 @@ console.log(typeof 123n);    // bigint
 console.log(typeof {});      // object
 console.log(typeof []);      // object
 console.log(typeof function(){}); // function
-```
+````
 
 ---
 
 [🔝 Back to Top](#table-of-contents)
-````
+
+### 4. What are truthy and falsy values?
+
+In JavaScript, every value is inherently either **truthy** or **falsy** when evaluated in a **Boolean context** (e.g., in `if` conditions).
+
+---
+
+## 1️⃣ **Falsy Values**
+
+These are values that evaluate to `false` when converted to a Boolean.
+
+There are **only 6 falsy values** in JavaScript:
+
+1. `false`
+2. `0` (zero)
+3. `""` (empty string)
+4. `null`
+5. `undefined`
+6. `NaN`
+
+📌 Example:
+
+```javascript
+if (false) console.log("Won't run");
+if (0) console.log("Won't run");
+if ("") console.log("Won't run");
+if (null) console.log("Won't run");
+if (undefined) console.log("Won't run");
+if (NaN) console.log("Won't run");
+```
+
+---
+
+## 2️⃣ **Truthy Values**
+
+All values **other than falsy** are considered truthy.
+
+Examples of truthy values:
+
+- Non-empty strings: `"Hello"`, `" "`
+- Non-zero numbers: `1`, `-5`, `3.14`
+- Objects: `{}`, `[]`
+- Functions: `function() {}`
+- `Infinity` and `-Infinity`
+
+📌 Example:
+
+```javascript
+if ("Hello") console.log("Runs - non-empty string is truthy");
+if (42) console.log("Runs - non-zero number is truthy");
+if ([]) console.log("Runs - empty array is truthy");
+if ({}) console.log("Runs - empty object is truthy");
+```
+
+---
+
+## 3️⃣ Boolean Conversion
+
+You can explicitly check truthy/falsy nature using `Boolean()` or `!!`:
+
+```javascript
+console.log(Boolean("Hello")); // true
+console.log(Boolean("")); // false
+console.log(!!42); // true
+console.log(!!0); // false
+```
+
+---
+
+## 🧠 Key Takeaways:
+
+- JavaScript automatically converts values to Boolean when needed (type coercion).
+- Knowing falsy values helps avoid **unexpected bugs** in conditions.
+- Always use strict comparisons (`===`) if you need to differentiate between values like `0`, `null`, or `undefined`.
+
+[🔝 Back to Top](#table-of-contents)
