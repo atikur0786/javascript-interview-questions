@@ -23,7 +23,7 @@ Use the **Table of Contents** below to navigate quickly. Each answer includes a 
 2. [Explain var, let, and const with examples.](#2-explain-var-let-and-const-with-examples)
 3. [What are data types in JavaScript?](#3-what-are-data-types-in-javascript)
 4. [What are truthy and falsy values?](#4-what-are-truthy-and-falsy-values)
-5. [Explain == vs ===.](#5-explain--vs-)
+5. [Explain double(==) vs triple(===).](#5-explain-double-vs-triple)
 6. [What is hoisting in JavaScript?](#6-what-is-hoisting-in-javascript)
 7. [What is the difference between null and undefined?](#7-what-is-the-difference-between-null-and-undefined)
 8. [What is scope in JavaScript?](#8-what-is-scope-in-javascript)
@@ -409,5 +409,67 @@ console.log(!!0); // false
 - JavaScript automatically converts values to Boolean when needed (type coercion).
 - Knowing falsy values helps avoid **unexpected bugs** in conditions.
 - Always use strict comparisons (`===`) if you need to differentiate between values like `0`, `null`, or `undefined`.
+
+[🔝 Back to Top](#table-of-contents)
+
+### 5. Explain double(==) vs triple(===)
+
+In JavaScript, both `==` and `===` are comparison operators, but they behave differently when comparing values.
+
+---
+
+## 1️⃣ **`==` (Loose Equality / Abstract Equality)**
+
+- Compares **only values**, not types.
+- Performs **type coercion** if the types are different.
+- Can lead to unexpected results due to automatic conversions.
+
+📌 Example:
+
+```javascript
+console.log(5 == "5"); // true (string "5" converted to number)
+console.log(0 == false); // true (false converted to 0)
+console.log(null == undefined); // true (special rule)
+console.log([] == false); // true (empty array converted to "")
+```
+
+---
+
+## 2️⃣ **`===` (Strict Equality)**
+
+- Compares **both values and types**.
+- No type coercion is performed.
+- Safer and more predictable.
+
+📌 Example:
+
+```javascript
+console.log(5 === "5"); // false (different types: number vs string)
+console.log(0 === false); // false (number vs boolean)
+console.log(null === undefined); // false (different types)
+console.log(10 === 10); // true (same value and type)
+```
+
+---
+
+## 3️⃣ **Comparison Table**
+
+| Operator | Compares       | Type Conversion | Example Result      |
+| -------- | -------------- | --------------- | ------------------- |
+| `==`     | Values         | ✅ Yes          | `"5" == 5 → true`   |
+| `===`    | Values + Types | ❌ No           | `"5" === 5 → false` |
+
+---
+
+## 🧠 Key Takeaways
+
+- Use **`===` (strict equality)** in most cases to avoid unexpected type coercion.
+- Use `==` **only when you intentionally want type conversion** (rare in modern code).
+- Pair it with **truthy/falsy knowledge** for safer conditions.
+
+---
+
+📌 **Best Practice:**
+Always prefer `===` and `!==` in production code.
 
 [🔝 Back to Top](#table-of-contents)
