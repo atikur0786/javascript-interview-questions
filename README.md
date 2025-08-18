@@ -473,3 +473,92 @@ console.log(10 === 10); // true (same value and type)
 Always prefer `===` and `!==` in production code.
 
 [🔝 Back to Top](#table-of-contents)
+
+### 6. What is hoisting in JavaScript?
+
+**Hoisting** is JavaScript’s default behavior of moving **variable and function declarations** to the top of their scope (before code execution).
+
+This means you can use variables and functions **before they are declared**, but with some differences between `var`, `let`, `const`, and functions.
+
+---
+
+## 1️⃣ Hoisting with `var`
+
+- `var` declarations are hoisted and **initialized with `undefined`**.
+- Accessing them before declaration gives `undefined` instead of an error.
+
+📌 Example:
+
+```javascript
+console.log(a); // undefined (hoisted)
+var a = 10;
+console.log(a); // 10
+```
+
+---
+
+## 2️⃣ Hoisting with `let` and `const`
+
+- Declarations are hoisted but **not initialized**.
+- They remain in the **Temporal Dead Zone (TDZ)** until the actual line of declaration.
+- Accessing them before declaration causes a **ReferenceError**.
+
+📌 Example:
+
+```javascript
+// console.log(b); // ❌ ReferenceError
+let b = 20;
+
+// console.log(c); // ❌ ReferenceError
+const c = 30;
+```
+
+---
+
+## 3️⃣ Hoisting with Functions
+
+- **Function Declarations** are fully hoisted, meaning you can call them before defining.
+- **Function Expressions** (with `var`, `let`, `const`) are hoisted differently.
+
+📌 Function Declaration:
+
+```javascript
+greet(); // ✅ Works (hoisted)
+
+function greet() {
+  console.log("Hello from function!");
+}
+```
+
+📌 Function Expression:
+
+```javascript
+// sayHello(); // ❌ TypeError if using var (sayHello is undefined)
+// ❌ ReferenceError if using let/const
+
+var sayHello = function () {
+  console.log("Hello!");
+};
+```
+
+---
+
+## 4️⃣ Summary of Hoisting Behavior
+
+| Declaration Type | Hoisted? | Initialized?             | Access before declaration   |
+| ---------------- | -------- | ------------------------ | --------------------------- |
+| `var`            | ✅ Yes   | `undefined`              | Allowed (returns undefined) |
+| `let`            | ✅ Yes   | ❌ No (TDZ)              | ❌ ReferenceError           |
+| `const`          | ✅ Yes   | ❌ No (TDZ)              | ❌ ReferenceError           |
+| Function Decl.   | ✅ Yes   | ✅ Yes                   | ✅ Allowed                  |
+| Function Expr.   | ✅ Yes   | Depends on var/let/const | ❌ Error                    |
+
+---
+
+## 🧠 Key Takeaways
+
+- Hoisting **moves declarations, not initializations**.
+- `var` is hoisted with `undefined`, while `let` and `const` are in the TDZ.
+- Function declarations are hoisted, but function expressions are not safely usable before definition.
+
+[🔝 Back to Top](#table-of-contents)
