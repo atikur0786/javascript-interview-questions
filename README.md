@@ -641,3 +641,119 @@ console.log(typeof null); // "object" (quirk in JS)
 - Always use **strict equality (`===`)** to avoid confusion between the two.
 
 [🔝 Back to Top](#table-of-contents)
+
+### 8. What is scope in JavaScript?
+
+**Scope** in JavaScript refers to the **current context of execution** in which values and expressions are visible or can be referenced.
+
+It determines the **accessibility (visibility)** of variables, functions, and objects in different parts of the code.
+
+---
+
+## 1️⃣ **Types of Scope in JavaScript**
+
+### 🔹 Global Scope
+
+- Variables declared **outside any function or block** are in the global scope.
+- Accessible from **anywhere in the program**.
+
+```javascript
+var globalVar = "I am global";
+
+function show() {
+  console.log(globalVar); // Accessible
+}
+show();
+console.log(globalVar); // Accessible
+```
+
+---
+
+### 🔹 Function Scope
+
+- Variables declared with `var` inside a function are **function-scoped**.
+- They cannot be accessed outside the function.
+
+```javascript
+function test() {
+  var x = 10;
+  console.log(x); // 10
+}
+test();
+// console.log(x); // ❌ ReferenceError (not accessible outside)
+```
+
+---
+
+### 🔹 Block Scope (ES6: `let` and `const`)
+
+- Variables declared with `let` or `const` are **block-scoped**.
+- Accessible only inside the `{}` block where they are defined.
+
+```javascript
+{
+  let y = 20;
+  const z = 30;
+  console.log(y, z); // 20, 30
+}
+// console.log(y); // ❌ ReferenceError
+// console.log(z); // ❌ ReferenceError
+```
+
+---
+
+### 🔹 Lexical Scope
+
+- Inner functions have access to variables from **their parent scope**.
+- Also known as **static scope**.
+
+```javascript
+function outer() {
+  let a = "outer";
+
+  function inner() {
+    console.log(a); // Accessible due to lexical scope
+  }
+  inner();
+}
+outer();
+```
+
+---
+
+## 2️⃣ **Scope Chain**
+
+- When trying to access a variable, JavaScript looks in the **current scope**.
+- If not found, it looks **outward through parent scopes** until the global scope.
+- If still not found, it returns `ReferenceError`.
+
+📌 Example:
+
+```javascript
+let global = "global";
+
+function outer() {
+  let outerVar = "outer";
+
+  function inner() {
+    let innerVar = "inner";
+    console.log(global); // ✅ found in global scope
+    console.log(outerVar); // ✅ found in outer scope
+    console.log(innerVar); // ✅ found in inner scope
+  }
+  inner();
+}
+outer();
+```
+
+---
+
+## 🧠 Key Takeaways
+
+- **Global scope**: Accessible everywhere.
+- **Function scope**: Variables accessible only inside the function (`var`).
+- **Block scope**: Variables accessible only inside `{}` (`let`, `const`).
+- **Lexical scope**: Inner functions can access variables from parent scopes.
+- JavaScript uses a **scope chain** to resolve variable access.
+
+[🔝 Back to Top](#table-of-contents)
