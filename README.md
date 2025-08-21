@@ -757,3 +757,103 @@ outer();
 - JavaScript uses a **scope chain** to resolve variable access.
 
 [🔝 Back to Top](#table-of-contents)
+
+### 9. What are closures in JavaScript?
+
+A **closure** is a function that **remembers and accesses variables** from its **outer scope** even after the outer function has finished executing.
+
+Closures are created every time a function is defined inside another function and gives the inner function access to the outer function’s scope.
+
+---
+
+## 1️⃣ **Basic Example**
+
+```javascript
+function outer() {
+  let count = 0;
+
+  function inner() {
+    count++;
+    console.log(count);
+  }
+
+  return inner;
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+counter(); // 3
+```
+
+✅ Here, `inner()` is a closure. It keeps access to the variable `count` from `outer()` even after `outer()` has finished executing.
+
+---
+
+## 2️⃣ **Closures with Parameters**
+
+```javascript
+function multiplier(factor) {
+  return function (num) {
+    return num * factor;
+  };
+}
+
+const double = multiplier(2);
+console.log(double(5)); // 10
+
+const triple = multiplier(3);
+console.log(triple(5)); // 15
+```
+
+✅ `double` and `triple` are closures that "remember" the value of `factor` from their respective calls.
+
+---
+
+## 3️⃣ **Real-World Uses of Closures**
+
+- **Data privacy & encapsulation** (simulate private variables).
+- **Function factories** (create customized functions).
+- **Event handlers & callbacks**.
+- **Maintaining state** without using global variables.
+
+---
+
+### 🔹 Example: Private Variables
+
+```javascript
+function createBankAccount(initialBalance) {
+  let balance = initialBalance;
+
+  return {
+    deposit(amount) {
+      balance += amount;
+      return balance;
+    },
+    withdraw(amount) {
+      balance -= amount;
+      return balance;
+    },
+    getBalance() {
+      return balance;
+    },
+  };
+}
+
+const account = createBankAccount(100);
+console.log(account.deposit(50)); // 150
+console.log(account.withdraw(20)); // 130
+console.log(account.getBalance()); // 130
+```
+
+✅ `balance` is **private** — it can only be accessed through the returned methods, thanks to closures.
+
+---
+
+## 🧠 Key Takeaways
+
+- A **closure** is a function that has access to variables from its outer scope even after that scope has returned.
+- Helps in **data privacy, state management, and callbacks**.
+- Commonly used in **functional programming** and **event-driven code**.
+
+[🔝 Back to Top](#table-of-contents)
