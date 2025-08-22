@@ -28,7 +28,7 @@ Use the **Table of Contents** below to navigate quickly. Each answer includes a 
 7. [What is the difference between null and undefined?](#7-what-is-the-difference-between-null-and-undefined)
 8. [What is scope in JavaScript?](#8-what-is-scope-in-javascript)
 9. [What are closures in JavaScript?](#9-what-are-closures-in-javascript)
-10. [What is the difference between function declaration and expression?](#10-what-is-the-difference-between-function-declaration-and-expression)
+10. [What is the difference between function declaration and function expression?](#10-what-is-the-difference-between-function-declaration-and-function-expression)
 
 ### 🟡 Intermediate Level
 
@@ -855,5 +855,86 @@ console.log(account.getBalance()); // 130
 - A **closure** is a function that has access to variables from its outer scope even after that scope has returned.
 - Helps in **data privacy, state management, and callbacks**.
 - Commonly used in **functional programming** and **event-driven code**.
+
+[🔝 Back to Top](#table-of-contents)
+
+### 10. What is the difference between function declaration and function expression?
+
+In JavaScript, functions can be defined in two main ways: **function declarations** and **function expressions**.  
+They look similar but behave differently due to **hoisting** and how they are defined.
+
+---
+
+## 1️⃣ **Function Declaration**
+
+- Defined using the `function` keyword.
+- **Hoisted** completely (you can call it before it’s defined in code).
+- Named functions.
+
+```javascript
+// Function Declaration
+function greet() {
+  return "Hello!";
+}
+
+console.log(greet()); // ✅ "Hello!"
+```
+
+✅ This works even if you call `greet()` before its definition because **declarations are hoisted**.
+
+---
+
+## 2️⃣ **Function Expression**
+
+- A function assigned to a variable.
+- Can be **anonymous** or named.
+- **Not hoisted** the same way — you can only call it after the assignment.
+
+```javascript
+// Function Expression
+const greet = function () {
+  return "Hello!";
+};
+
+console.log(greet()); // ✅ "Hello!"
+```
+
+❌ If you try `greet()` **before** the definition, you’ll get an error:
+`TypeError: greet is not a function`
+
+---
+
+## 3️⃣ **Key Differences**
+
+| Feature                | Function Declaration                   | Function Expression                                    |
+| ---------------------- | -------------------------------------- | ------------------------------------------------------ |
+| **Hoisting**           | Fully hoisted, can be called earlier   | Not hoisted, must be defined first                     |
+| **Syntax**             | `function name() {}`                   | `const name = function() {}`                           |
+| **Anonymous Allowed?** | No (must have a name)                  | Yes (can be anonymous or named)                        |
+| **When to Use?**       | When defining reusable named functions | When functions are assigned as values or passed around |
+
+---
+
+## 4️⃣ **Example: Hoisting Difference**
+
+```javascript
+sayHi(); // ✅ Works (hoisted)
+function sayHi() {
+  console.log("Hi!");
+}
+
+sayHello(); // ❌ Error: Cannot access 'sayHello' before initialization
+const sayHello = function () {
+  console.log("Hello!");
+};
+```
+
+---
+
+## 🧠 Key Takeaways
+
+- **Function Declarations** are hoisted, so you can call them before defining.
+- **Function Expressions** are not hoisted in the same way — must be defined before use.
+- Use **declarations** for global, reusable functions; use **expressions** for inline or callback functions.
 
 [🔝 Back to Top](#table-of-contents)
