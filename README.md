@@ -938,3 +938,116 @@ const sayHello = function () {
 - Use **declarations** for global, reusable functions; use **expressions** for inline or callback functions.
 
 [🔝 Back to Top](#table-of-contents)
+
+### 11. What is the event loop in JavaScript?
+
+The **event loop** is a fundamental concept in JavaScript that enables **asynchronous, non-blocking behavior**.  
+Since JavaScript is **single-threaded**, it can only do one thing at a time. The event loop allows JavaScript to handle tasks like timers, promises, and I/O operations **without blocking the main thread**.
+
+---
+
+## 1️⃣ **How It Works**
+
+JavaScript runtime consists of three main parts:
+
+1. **Call Stack** → Where functions are executed.
+2. **Web APIs (Browser/Node.js APIs)** → Handles async operations (e.g., `setTimeout`, `fetch`).
+3. **Callback Queue / Microtask Queue** → Stores async callbacks waiting to run.
+
+The **event loop** continuously checks:
+
+- If the **call stack** is empty.
+- If there are tasks in the **microtask queue** (e.g., `Promises`).
+- Then pushes them to the call stack for execution.
+
+---
+
+## 2️⃣ **Illustration**
+
+```text
+Call Stack   <---->   Event Loop   <---->   Callback Queue
+      |                                      (setTimeout, events)
+      |
+      v
+Microtask Queue (Promises, MutationObserver)
+```
+
+---
+
+## 3️⃣ **Example with setTimeout**
+
+```javascript
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Timeout Callback");
+}, 0);
+
+console.log("End");
+```
+
+**Output:**
+
+```
+Start
+End
+Timeout Callback
+```
+
+✅ Even with `0ms` delay, the `setTimeout` callback runs **after** the synchronous code, because the event loop waits for the call stack to be clear.
+
+---
+
+## 4️⃣ **Example with Promises**
+
+```javascript
+console.log("Start");
+
+Promise.resolve().then(() => {
+  console.log("Promise Callback");
+});
+
+console.log("End");
+```
+
+**Output:**
+
+```
+Start
+End
+Promise Callback
+```
+
+✅ Promise callbacks go into the **microtask queue**, which is processed **before** the callback queue.
+
+---
+
+## 5️⃣ **Key Points**
+
+- JavaScript is **single-threaded** but uses the event loop for concurrency.
+- **Call Stack** → executes functions.
+- **Microtask Queue** → runs promises and microtasks before the callback queue.
+- **Callback Queue** → runs tasks like `setTimeout`, `setInterval`, DOM events.
+
+---
+
+## 🧠 Real-World Analogy
+
+Think of a **restaurant**:
+
+- The **chef** (call stack) cooks one dish at a time.
+- **Waiters** (Web APIs) handle orders and timers.
+- When a dish is ready, it’s put in a **queue**.
+- The **event loop** checks if the chef is free, then gives the next dish to cook.
+
+---
+
+## 📝 Interview Tip
+
+If asked:
+👉 _"Why doesn’t setTimeout with 0ms run immediately?"_
+Answer: Because it goes to the **callback queue** and only executes after the call stack is empty and microtasks are completed.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
