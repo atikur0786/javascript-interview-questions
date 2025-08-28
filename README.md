@@ -33,7 +33,7 @@ Use the **Table of Contents** below to navigate quickly. Each answer includes a 
 ### 🟡 Intermediate Level
 
 11. [What is the event loop in JavaScript?](#11-what-is-the-event-loop-in-javascript)
-12. [Explain call, apply, and bind methods.](#12-explain-call-apply-and-bind-methods)
+12. [Explain call, apply, and bind methods in javascript.](#12-explain-call-apply-and-bind-methods-in-javascript)
 13. [What are arrow functions and how are they different?](#13-what-are-arrow-functions-and-how-are-they-different)
 14. [What is the difference between synchronous and asynchronous code?](#14-what-is-the-difference-between-synchronous-and-asynchronous-code)
 15. [What is a promise and how does it work?](#15-what-is-a-promise-and-how-does-it-work)
@@ -1047,6 +1047,100 @@ Think of a **restaurant**:
 If asked:
 👉 _"Why doesn’t setTimeout with 0ms run immediately?"_
 Answer: Because it goes to the **callback queue** and only executes after the call stack is empty and microtasks are completed.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
+
+### 12. Explain `call`, `apply`, and `bind` methods in JavaScript
+
+In JavaScript, functions are **first-class objects**, which means they come with built-in methods.  
+Three important ones are **`call`**, **`apply`**, and **`bind`**, which allow you to **manually set the value of `this`** when invoking a function.
+
+---
+
+## 1. `call()`
+
+- Invokes the function **immediately**.
+- Accepts arguments **individually** (comma-separated).
+- Syntax: `func.call(thisArg, arg1, arg2, ...)`
+
+**Example:**
+
+```javascript
+function greet(city, country) {
+  console.log(`Hello, my name is ${this.name} from ${city}, ${country}`);
+}
+
+const person = { name: "Atikur" };
+
+greet.call(person, "Kolkata", "India");
+```
+
+**Output:**
+
+```
+Hello, my name is Atikur from Kolkata, India
+```
+
+---
+
+## 2. `apply()`
+
+- Invokes the function **immediately** (like `call`).
+- Accepts arguments **as an array**.
+- Syntax: `func.apply(thisArg, [argsArray])`
+
+**Example:**
+
+```javascript
+greet.apply(person, ["Delhi", "India"]);
+```
+
+**Output:**
+
+```
+Hello, my name is Atikur from Delhi, India
+```
+
+---
+
+## 3. `bind()`
+
+- **Does not invoke the function immediately**.
+- Returns a **new function** with `this` bound to the provided object.
+- Syntax: `const boundFunc = func.bind(thisArg, arg1, arg2, ...)`
+
+**Example:**
+
+```javascript
+const boundGreet = greet.bind(person, "Mumbai", "India");
+boundGreet(); // Executes later
+```
+
+**Output:**
+
+```
+Hello, my name is Atikur from Mumbai, India
+```
+
+---
+
+## 4. Key Differences
+
+| Method  | Invokes Immediately? | Argument Passing                         |
+| ------- | -------------------- | ---------------------------------------- |
+| `call`  | Yes                  | Comma-separated                          |
+| `apply` | Yes                  | Array of args                            |
+| `bind`  | No                   | Returns new function (can pass args too) |
+
+---
+
+## 5. Use Cases
+
+- **`call`** → Borrowing methods from one object to use on another.
+- **`apply`** → Similar to `call`, but useful when arguments are already in an array (e.g., `Math.max.apply(null, arr)`).
+- **`bind`** → When you want to **fix `this`** for later use (e.g., in event listeners, callbacks).
 
 ---
 
