@@ -1145,3 +1145,82 @@ Hello, my name is Atikur from Mumbai, India
 ---
 
 [🔝 Back to Top](#table-of-contents)
+
+### 13. What are Arrow Functions and How Are They Different?
+
+Arrow functions, introduced in **ES6 (ECMAScript 2015)**, are a **shorter syntax** for writing functions in JavaScript.  
+They are especially useful for writing concise code and handling the `this` keyword differently than traditional functions.
+
+---
+
+## 1. Syntax
+
+```javascript
+// Traditional function
+function add(a, b) {
+  return a + b;
+}
+
+// Arrow function
+const add = (a, b) => a + b;
+```
+
+- If the function body has only **one expression**, the `return` keyword and curly braces `{}` can be omitted.
+- If there is only **one parameter**, parentheses `()` are optional:
+
+```javascript
+const square = (x) => x * x;
+```
+
+---
+
+## 2. Key Differences Between Arrow Functions and Regular Functions
+
+| Feature                | Regular Function                             | Arrow Function                                                  |
+| ---------------------- | -------------------------------------------- | --------------------------------------------------------------- |
+| **Syntax**             | Verbose (`function` keyword required)        | Short and concise (`=>`)                                        |
+| **`this` binding**     | `this` depends on how the function is called | `this` is **lexically bound** (inherits from surrounding scope) |
+| **`arguments` object** | Has its own `arguments` object               | Does **not** have its own `arguments`                           |
+| **`new` keyword**      | Can be used as a constructor                 | Cannot be used as a constructor                                 |
+| **Methods in objects** | Suitable for defining object methods         | Not suitable (because of `this` binding)                        |
+
+---
+
+## 3. Example: `this` Behavior
+
+### Regular Function
+
+```javascript
+const person = {
+  name: "Atikur",
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+person.greet(); // "Hello, my name is Atikur"
+```
+
+### Arrow Function
+
+```javascript
+const person = {
+  name: "Atikur",
+  greet: () => {
+    console.log(`Hello, my name is ${this.name}`);
+  },
+};
+
+person.greet(); // "Hello, my name is undefined" (because arrow inherits `this` from outer scope)
+```
+
+---
+
+## 4. Use Cases
+
+- Best for **callbacks** (e.g., `map`, `filter`, `forEach`) where we don’t want to re-bind `this`.
+- Not suitable for **object methods** or **constructors**.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
