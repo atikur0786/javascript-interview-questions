@@ -1224,3 +1224,103 @@ person.greet(); // "Hello, my name is undefined" (because arrow inherits `this` 
 ---
 
 [🔝 Back to Top](#table-of-contents)
+
+### 14. What is the Difference Between Synchronous and Asynchronous Code?
+
+---
+
+## 1. Synchronous Code
+
+- Code is executed **line by line** in a sequence.
+- Each operation **blocks** the execution of the next one until it is completed.
+- If a task takes time (e.g., a network call), it **freezes** the program until it finishes.
+
+**Example:**
+
+```javascript
+console.log("Start");
+
+function task() {
+  for (let i = 0; i < 1e9; i++) {} // long-running task
+  console.log("Task finished");
+}
+
+task();
+console.log("End");
+
+// Output:
+// Start
+// Task finished
+// End
+```
+
+Here, the long-running loop **blocks** the execution, so `"End"` is printed only after the task is complete.
+
+---
+
+## 2. Asynchronous Code
+
+- Code does **not block** the execution of the next operation.
+- Long-running tasks are handled in the **background** (via callbacks, promises, or async/await).
+- Common for tasks like **API requests, timers, file I/O, and database queries**.
+
+**Example with `setTimeout`:**
+
+```javascript
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Task finished (after 2s)");
+}, 2000);
+
+console.log("End");
+
+// Output:
+// Start
+// End
+// Task finished (after 2s)
+```
+
+Here, the program continues execution without waiting for `setTimeout` to complete.
+
+---
+
+## 3. Key Differences
+
+| Feature         | Synchronous                     | Asynchronous                            |
+| --------------- | ------------------------------- | --------------------------------------- |
+| **Execution**   | Line by line, in order          | Non-blocking, can continue other tasks  |
+| **Performance** | Slower if tasks take time       | Faster for long tasks (uses event loop) |
+| **Use Case**    | Simple operations, calculations | API calls, timers, file/database I/O    |
+
+---
+
+## 4. Modern Asynchronous Patterns
+
+- **Callbacks**
+- **Promises**
+- **Async/Await**
+
+Example using `async/await`:
+
+```javascript
+async function fetchData() {
+  console.log("Fetching data...");
+  const data = await new Promise((resolve) =>
+    setTimeout(() => resolve("Data loaded"), 2000)
+  );
+  console.log(data);
+}
+
+fetchData();
+console.log("End");
+
+// Output:
+// Fetching data...
+// End
+// Data loaded (after 2s)
+```
+
+---
+
+[🔝 Back to Top](#table-of-contents)
