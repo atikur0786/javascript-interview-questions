@@ -1324,3 +1324,128 @@ console.log("End");
 ---
 
 [🔝 Back to Top](#table-of-contents)
+
+### 15. What is a Promise and How Does It Work?
+
+A **Promise** in JavaScript is an object that represents the eventual **completion** or **failure** of an asynchronous operation.  
+It acts as a placeholder for a value that will be available now, later, or never.
+
+---
+
+## 1. States of a Promise
+
+A Promise has three possible states:
+
+1. **Pending** – Initial state, neither fulfilled nor rejected.
+2. **Fulfilled** – The operation completed successfully, returning a value.
+3. **Rejected** – The operation failed, returning a reason (error).
+
+Once a promise is either **fulfilled** or **rejected**, it becomes **settled** and cannot change states again.
+
+---
+
+## 2. Creating a Promise
+
+```javascript
+const myPromise = new Promise((resolve, reject) => {
+  const success = true;
+
+  if (success) {
+    resolve("Operation succeeded");
+  } else {
+    reject("Operation failed");
+  }
+});
+```
+
+---
+
+## 3. Consuming a Promise
+
+Promises are consumed using **`.then()`**, **`.catch()`**, and **`.finally()`**.
+
+```javascript
+myPromise
+  .then((result) => {
+    console.log(result); // "Operation succeeded"
+  })
+  .catch((error) => {
+    console.error(error); // "Operation failed"
+  })
+  .finally(() => {
+    console.log("Promise settled (fulfilled or rejected)");
+  });
+```
+
+---
+
+## 4. Example: Asynchronous Operation
+
+```javascript
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Data fetched successfully");
+    }, 2000);
+  });
+}
+
+fetchData()
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+```
+
+**Output:**
+
+```
+Data fetched successfully   (after 2 seconds)
+```
+
+---
+
+## 5. Promise Chaining
+
+You can chain multiple `.then()` calls to perform sequential asynchronous operations.
+
+```javascript
+fetchData()
+  .then((data) => {
+    console.log(data);
+    return "Next step";
+  })
+  .then((step) => {
+    console.log(step);
+  })
+  .catch((err) => console.error(err));
+```
+
+---
+
+## 6. Async/Await with Promises
+
+`async/await` is built on top of Promises and allows writing asynchronous code in a synchronous style.
+
+```javascript
+async function getData() {
+  try {
+    const data = await fetchData();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getData();
+```
+
+---
+
+## 7. Key Benefits of Promises
+
+- Avoids **callback hell** by chaining operations.
+- Provides better error handling using `.catch()`.
+- Works seamlessly with **async/await** syntax.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
