@@ -37,7 +37,7 @@ Use the **Table of Contents** below to navigate quickly. Each answer includes a 
 13. [What are arrow functions and how are they different?](#13-what-are-arrow-functions-and-how-are-they-different)
 14. [What is the difference between synchronous and asynchronous code?](#14-what-is-the-difference-between-synchronous-and-asynchronous-code)
 15. [What is a promise and how does it work?](#15-what-is-a-promise-and-how-does-it-work)
-16. [What is async/await and how does it work under the hood?](#16-what-is-asyncawait-and-how-does-it-work-under-the-hood)
+16. [What is async, await and how does it work under the hood?](#16-what-is-async-await-and-how-does-it-work-under-the-hood)
 17. [What is the difference between map, filter, and reduce?](#17-what-is-the-difference-between-map-filter-and-reduce)
 18. [What are template literals?](#18-what-are-template-literals)
 19. [What are higher-order functions?](#19-what-are-higher-order-functions)
@@ -1445,6 +1445,168 @@ getData();
 - Avoids **callback hell** by chaining operations.
 - Provides better error handling using `.catch()`.
 - Works seamlessly with **async/await** syntax.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
+
+Excellent — here’s a **clear, educational, and professional** explanation of **async/await** in README format (no emojis, no fluff).
+
+---
+
+````md
+---
+## 16. What is async, await and How Does It Work Under the Hood?
+
+The `async/await` syntax, introduced in **ES2017 (ES8)**, provides a cleaner and more readable way to work with Promises in JavaScript.
+It allows developers to write **asynchronous code** that looks and behaves more like **synchronous code**.
+---
+
+## 1. The `async` Keyword
+
+- Declaring a function as `async` automatically makes it return a **Promise**.
+- Even if you return a simple value, JavaScript wraps it in a resolved Promise.
+
+**Example:**
+
+```javascript
+async function greet() {
+  return "Hello";
+}
+
+greet().then((msg) => console.log(msg)); // Output: Hello
+```
+````
+
+Here, `greet()` actually returns `Promise.resolve("Hello")`.
+
+---
+
+## 2. The `await` Keyword
+
+- Can only be used **inside an async function**.
+- Pauses the execution of the async function until the Promise is **fulfilled** or **rejected**.
+- Once resolved, it returns the resolved value.
+- If the Promise is rejected, it throws an error (which can be caught with `try...catch`).
+
+**Example:**
+
+```javascript
+function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve("Data fetched"), 2000);
+  });
+}
+
+async function getData() {
+  console.log("Fetching...");
+  const result = await fetchData(); // waits here until resolved
+  console.log(result);
+  console.log("Done");
+}
+
+getData();
+
+// Output:
+// Fetching...
+// Data fetched
+// Done
+```
+
+---
+
+## 3. Error Handling with `try...catch`
+
+Instead of using `.catch()` like with Promises, `async/await` allows standard `try...catch` blocks.
+
+**Example:**
+
+```javascript
+function fetchData(success) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      success ? resolve("Data loaded") : reject("Error fetching data");
+    }, 2000);
+  });
+}
+
+async function getData() {
+  try {
+    const data = await fetchData(false);
+    console.log(data);
+  } catch (error) {
+    console.error("Caught error:", error);
+  }
+}
+
+getData();
+
+// Output:
+// Caught error: Error fetching data
+```
+
+---
+
+## 4. How It Works Under the Hood
+
+Underneath, `async/await` is **syntactic sugar** built on top of **Promises** and the **event loop**.
+
+1. When an async function is called, it returns a Promise.
+2. The function executes until it reaches an `await` statement.
+3. Execution **pauses**, and control returns to the event loop.
+4. Once the awaited Promise is resolved, the function **resumes** where it left off.
+5. If an error is thrown, it’s handled just like a Promise rejection.
+
+Essentially:
+
+```text
+async/await = Promise + generator-like control flow
+```
+
+---
+
+## 5. Sequential vs Parallel Execution
+
+**Sequential Example:**
+
+```javascript
+async function sequential() {
+  const res1 = await fetchData();
+  const res2 = await fetchData();
+  console.log(res1, res2);
+}
+```
+
+**Parallel Example:**
+
+```javascript
+async function parallel() {
+  const [res1, res2] = await Promise.all([fetchData(), fetchData()]);
+  console.log(res1, res2);
+}
+```
+
+Use `Promise.all()` for parallel operations to improve performance.
+
+---
+
+## 6. Key Advantages
+
+- Makes asynchronous code **readable and maintainable**.
+- Avoids **callback hell** and `.then()` chaining.
+- Integrates seamlessly with error handling using `try...catch`.
+
+---
+
+## 7. Summary Table
+
+| Concept        | Description                                              |
+| -------------- | -------------------------------------------------------- |
+| `async`        | Declares an asynchronous function that returns a Promise |
+| `await`        | Pauses execution until a Promise settles                 |
+| Error Handling | Done using `try...catch`                                 |
+| Under the Hood | Built on Promises and the event loop                     |
+| Benefit        | Cleaner syntax for managing asynchronous operations      |
 
 ---
 
