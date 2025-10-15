@@ -1611,3 +1611,147 @@ Use `Promise.all()` for parallel operations to improve performance.
 ---
 
 [🔝 Back to Top](#table-of-contents)
+
+Of course — here’s a **clean and professional explanation** of the difference between `map()`, `filter()`, and `reduce()` in JavaScript, written in an educational format (no emojis or unnecessary styling).
+
+---
+
+````md
+---
+
+## 17. What is the Difference Between `map`, `filter`, and `reduce` in JavaScript?
+
+`map()`, `filter()`, and `reduce()` are **array methods** in JavaScript that help in **transforming**, **filtering**, and **accumulating** data.  
+They are part of functional programming concepts and are often used together for cleaner, more declarative code.
+
+---
+
+## 1. `map()` – Transforming Each Element
+
+**Purpose:**  
+`map()` is used to **transform each element** of an array and return a **new array** of the same length.
+
+**Key Points:**
+
+- Does not modify the original array.
+- Always returns a new array.
+- The number of elements in the new array equals the original.
+
+**Syntax:**
+
+```javascript
+array.map((element, index, array) => {
+  // return transformed value
+});
+```
+````
+
+**Example:**
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map((num) => num * 2);
+
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+---
+
+## 2. `filter()` – Selecting Specific Elements
+
+**Purpose:**
+`filter()` is used to **select elements** from an array that meet a certain **condition** and return a **new array**.
+
+**Key Points:**
+
+- Does not modify the original array.
+- Returns a new array with elements that passed the condition.
+- The length of the new array may be **less than or equal to** the original.
+
+**Syntax:**
+
+```javascript
+array.filter((element, index, array) => {
+  // return true to keep element, false to remove
+});
+```
+
+**Example:**
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter((num) => num % 2 === 0);
+
+console.log(evenNumbers); // [2, 4]
+```
+
+---
+
+## 3. `reduce()` – Accumulating into a Single Value
+
+**Purpose:**
+`reduce()` is used to **accumulate** all elements of an array into a **single value** (number, string, object, etc.).
+
+**Key Points:**
+
+- Takes a callback function with an accumulator.
+- Optionally takes an initial value.
+- Returns a single value, not an array.
+
+**Syntax:**
+
+```javascript
+array.reduce((accumulator, currentValue, index, array) => {
+  // return updated accumulator
+}, initialValue);
+```
+
+**Example:**
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+
+console.log(sum); // 10
+```
+
+---
+
+## 4. Comparison Table
+
+| Method     | Returns      | Use Case                             | Original Array | Common Output               |
+| ---------- | ------------ | ------------------------------------ | -------------- | --------------------------- |
+| `map()`    | New array    | Transform each element               | Unchanged      | Same length array           |
+| `filter()` | New array    | Select elements based on a condition | Unchanged      | Possibly shorter array      |
+| `reduce()` | Single value | Combine elements into one result     | Unchanged      | Number, object, string, etc |
+
+---
+
+## 5. Example Using All Three
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+
+// 1. Double all numbers
+const doubled = numbers.map((num) => num * 2); // [2, 4, 6, 8, 10, 12]
+
+// 2. Keep only even numbers
+const evens = doubled.filter((num) => num % 4 === 0); // [4, 8, 12]
+
+// 3. Sum all remaining numbers
+const total = evens.reduce((acc, num) => acc + num, 0); // 24
+
+console.log(total);
+```
+
+---
+
+## 6. Summary
+
+- Use `map()` to **transform** data.
+- Use `filter()` to **select** specific data.
+- Use `reduce()` to **combine** data into a single value.
+
+---
+
+[🔝 Back to Top](#table-of-contents)
